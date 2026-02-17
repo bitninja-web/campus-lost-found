@@ -541,6 +541,7 @@ body {
 
 .badge {
   position: absolute;
+  z-index: 10;
   top: .8rem;
   left: .8rem;
   padding: .28rem .75rem;
