@@ -1,15 +1,25 @@
 {
-  "name": "lost-and-found",
-  "version": "1.0.0",
-  "description": "Lost and Found Web App with backend",
-  "main": "server.js",
+  "name": "campus-lost-and-found",
+  "version": "2.0.0",
+  "description": "Campus Lost and Found Web App — Next.js",
+  "private": true,
   "scripts": {
-    "start": "node server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "multer": "^1.4.5-lts.1"
+    "bcryptjs": "^3.0.3",
+    "mongodb-memory-server": "^11.2.0",
+    "mongoose": "^9.7.4",
+    "next": "^15.3.0",
+    "next-auth": "^4.24.14",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^15.3.0"
   }
 }

@@ -1,72 +1,89 @@
 # 🎒 Campus Lost & Found System
 
-![Node.js](https://img.shields.io/badge/Node.js-18.x-green)
-![Express](https://img.shields.io/badge/Express.js-Backend-black)
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![React](https://img.shields.io/badge/React-19-blue)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
-![Deployment](https://img.shields.io/badge/Deployed-Render-blue)
 ![Status](https://img.shields.io/badge/Status-Live-success)
 
-A full-stack web application that enables students to report lost items and post found items within a campus.  
+A full-stack web application built with **Next.js** that enables students to report lost items and post found items within a campus.  
 The system allows users to upload images, browse listings, and manage reports efficiently.
-
----
-
-## 🌐 Live Application
-
-🔗 https://campus-lost-found-809.onrender.com
 
 ---
 
 ## ✨ Key Features
 
-- 📝 Report Lost Items
-- 📦 Post Found Items
-- 🖼️ Image Upload Support
-- 📋 View All Listings
-- 🔍 Dynamic Data Rendering
-- ☁️ Cloud Deployment (Render)
+- 📝 Report Lost / Found Items with image upload
+- 🖼️ Drag & Drop Image Upload Support
+- 📋 Browse All Listings with search, filter & sort
+- 🔍 Real-time Debounced Search
+- 📂 Category & Status Filtering
+- ✅ Mark Items as Claimed
+- 🌙 Dark / Light Theme Toggle
+- 📱 Fully Responsive Design
 - 💾 Persistent Data Storage (JSON-based)
+- 🔔 Toast Notifications
 
 ---
 
 ## 🏗️ Tech Stack
 
 ### 🔹 Frontend
-- HTML5
-- CSS3
-- Vanilla JavaScript
+- **Next.js 15** (App Router)
+- **React 19**
+- Vanilla CSS (1300+ lines with dark mode, animations, responsive breakpoints)
 
 ### 🔹 Backend
-- Node.js
-- Express.js
-
-### 🔹 Middleware
-- Multer (Image Upload Handling)
+- **Next.js API Routes** (Route Handlers)
+- Native `FormData` API for image uploads
 
 ### 🔹 Storage
 - JSON File (`items.json`)
-- Local Uploads Directory
-
-### 🔹 Deployment
-- Render (Cloud Hosting)
-- GitHub (Version Control)
+- Local Uploads Directory (`public/uploads/`)
 
 ---
 
 ## 📁 Project Structure
 
-CAMPUS-LOST-FOUND
-│
+```
+Campus_Lost&Found/
 ├── public/
-│ ├── index.html
-│ ├── script.js
-│ └── style.css
-│
-├── uploads/
-├── items.json
-├── server.js
+│   └── uploads/              # Uploaded item images
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── items/
+│   │   │       ├── route.js          # GET (list) + POST (create)
+│   │   │       └── [id]/
+│   │   │           └── route.js      # GET + PATCH + DELETE
+│   │   ├── globals.css               # All styles
+│   │   ├── layout.js                 # Root layout with providers
+│   │   └── page.js                   # Main page
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Hero.jsx
+│   │   ├── StatsBar.jsx
+│   │   ├── SearchBar.jsx
+│   │   ├── Toolbar.jsx
+│   │   ├── ItemsGrid.jsx
+│   │   ├── ItemCard.jsx
+│   │   ├── DetailView.jsx
+│   │   ├── ReportModal.jsx
+│   │   ├── Toast.jsx
+│   │   ├── ScrollToTop.jsx
+│   │   ├── SkeletonLoader.jsx
+│   │   └── Footer.jsx
+│   ├── context/
+│   │   ├── ThemeContext.jsx          # Dark/Light theme
+│   │   └── ItemsContext.jsx          # Items state & CRUD
+│   └── lib/
+│       ├── items.js                  # Server-side helpers
+│       └── utils.js                  # Client-side utilities
+├── items.json                        # Data store
+├── next.config.mjs
+├── jsconfig.json
 ├── package.json
-└── package-lock.json
+└── README.md
+```
 
 ---
 
@@ -74,55 +91,81 @@ CAMPUS-LOST-FOUND
 
 ### 1️⃣ Clone the Repository
 
+```bash
 git clone https://github.com/your-username/campus-lost-found.git
 cd campus-lost-found
-
+```
 
 ### 2️⃣ Install Dependencies
 
+```bash
 npm install
+```
 
+### 3️⃣ Start Development Server
 
-### 3️⃣ Start Server
+```bash
+node ./node_modules/next/dist/bin/next dev
+```
 
-npm start
-
+> ⚠️ **Note:** If your folder name contains special characters like `&` (e.g. `Campus_Lost&Found`), use the command above instead of `npm run dev`. Alternatively, rename the folder to remove the `&` and `npm run dev` will work normally.
 
 ### 4️⃣ Open in Browser
 
-http://localhost:5000
+```
+http://localhost:3000
+```
 
+---
+
+## 🏭 Production Build
+
+```bash
+# Build
+node ./node_modules/next/dist/bin/next build
+
+# Start production server
+node ./node_modules/next/dist/bin/next start
+```
+
+---
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/items` | List all items (supports `?status=` & `?category=` filters) |
+| `GET` | `/api/items/:id` | Get a single item |
+| `POST` | `/api/items` | Create new item (multipart form with optional image) |
+| `PATCH` | `/api/items/:id` | Update item fields (e.g. mark as claimed) |
+| `DELETE` | `/api/items/:id` | Remove an item |
 
 ---
 
 ## 🔄 Application Workflow
 
-1. User submits a lost/found item via form.
-2. Image is uploaded using Multer.
+1. User submits a lost/found item via the report modal.
+2. Image is uploaded via native FormData API and saved to `public/uploads/`.
 3. Item details are stored in `items.json`.
-4. Frontend fetches and dynamically displays the items.
+4. React frontend fetches and dynamically displays the items.
+5. Users can search, filter, sort, claim, or delete items.
 
 ---
 
 ## 📸 Screenshots
 
-_Add screenshots here for better presentation._
-
-Example:
-
-<img width="1120" height="586" alt="image" src="https://github.com/user-attachments/assets/cc99f2c0-3ca9-40d7-bab0-b86caa3ef594" />
-
-
+### Light Mode
+<img width="1120" alt="Light Mode" src="https://github.com/user-attachments/assets/cc99f2c0-3ca9-40d7-bab0-b86caa3ef594" />
 
 ---
 
 ## 🚀 Future Improvements
 
-- 🔄 MongoDB Integration
+- 🔄 MongoDB / PostgreSQL Integration
 - ☁️ Cloudinary Image Storage
-- 🔐 User Authentication
-- 📱 Responsive UI Enhancement
-- 🔎 Advanced Search & Filters
+- 🔐 User Authentication (NextAuth.js)
+- 📧 Email Notifications
+- 🔎 Advanced Search with fuzzy matching
 
 ---
 
