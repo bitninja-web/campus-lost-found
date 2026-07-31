@@ -115,7 +115,7 @@ Campus_LostandFound/
 
 ```bash
 git clone https://github.com/your-username/campus-lost-found.git
-cd Campus_LostandFound
+cd campus-lost-found
 ```
 
 ### 2️⃣ Install Dependencies
