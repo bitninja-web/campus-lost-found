@@ -5,26 +5,11 @@ import connectDB from "@/lib/mongodb";
 import Item from "@/models/Item";
 import Image from "@/models/Image";
 import mongoose from "mongoose";
-
-// ── Helpers ──
-function stripAuditFields(item) {
-  const obj = item.toObject ? item.toObject() : { ...item };
-  obj.id = obj._id?.toString() || obj.id;
-  delete obj.submittedBy;
-  delete obj.submittedAt;
-  delete obj.claimedBy;
-  delete obj.handedOverAt;
-  delete obj.statusHistory;
-  delete obj.__v;
-  return obj;
-}
-
-function fullItem(item) {
-  const obj = item.toObject ? item.toObject() : { ...item };
-  obj.id = obj._id?.toString() || obj.id;
-  delete obj.__v;
-  return obj;
-}
+import {
+  VALID_STATUSES,
+  stripAuditFields,
+  fullItem,
+} from "@/lib/constants";
 
 // Deletes the Image document in Atlas that backs an item's image URL, if any.
 // Safe to call even if the item has no image, or an old /uploads/ path.
@@ -41,8 +26,6 @@ async function deleteAssociatedImage(imageUrl) {
     console.error("Failed to delete associated image:", err);
   }
 }
-
-const VALID_STATUSES = ["Lost", "Found", "Claimed"];
 
 // GET /api/items/:id
 export async function GET(request, { params }) {
@@ -91,6 +74,11 @@ export async function PATCH(request, { params }) {
 
     const body = await request.json();
 
+    // Validate status early — before applying any mutations
+    if (body.status && !VALID_STATUSES.includes(body.status)) {
+      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+    }
+
     // Students can ONLY change status to "Claimed"
     if (!isAdmin) {
       if (!body.status || body.status !== "Claimed") {
@@ -118,11 +106,6 @@ export async function PATCH(request, { params }) {
           item[key] = body[key];
         }
       }
-    }
-
-    // Validate status
-    if (body.status && !VALID_STATUSES.includes(body.status)) {
-      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
 
     // If marking as Claimed, record who claimed it

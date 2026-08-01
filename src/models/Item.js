@@ -93,6 +93,7 @@ const ItemSchema = new mongoose.Schema(
       userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       name: String,
       email: String,
+      role: String,
       claimedAt: Date,
     },
 

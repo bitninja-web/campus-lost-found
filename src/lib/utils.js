@@ -11,17 +11,6 @@ export function formatDate(dateStr) {
   }
 }
 
-// ── HTML escape (for safety in dynamic content) ──
-export function escHtml(str) {
-  if (!str) return "";
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
 // ── Copy to clipboard with visual feedback ──
 export function copyToClipboard(text, successMsg, triggerEl, addToast) {
   const doAfterCopy = () => {

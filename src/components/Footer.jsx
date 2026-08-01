@@ -24,17 +24,6 @@ export default function Footer() {
               The official campus platform for reporting and recovering lost
               belongings. Helping students reconnect with what matters most.
             </p>
-            {/* <div className="footer-social">
-              <a href="#" className="footer-social-btn" title="Twitter" aria-label="Twitter">
-                𝕏
-              </a>
-              <a href="#" className="footer-social-btn" title="Instagram" aria-label="Instagram">
-                📷
-              </a>
-              <a href="#" className="footer-social-btn" title="Email" aria-label="Email">
-                ✉️
-              </a>
-            </div> */}
           </div>
 
           {/* Quick Links */}
@@ -44,39 +33,11 @@ export default function Footer() {
               <li>
                 <a href="/">🏠 Home</a>
               </li>
-              {/* <li>
-                <a href="/ReportModal">📝 Report Item</a>
-              </li>
-              <li>
-                <a href="/SearchItems">🔍 Search Items</a>
-              </li> */}
               <li>
                 <a href="/">📊 Dashboard</a>
               </li>
             </ul>
           </div>
-
-          {/* Categories */}
-          {/* <div className="footer-col">
-            <h4 className="footer-heading">Categories</h4>
-            <ul className="footer-links">
-              <li>
-                <a href="#">📱 Electronics</a>
-              </li>
-              <li>
-                <a href="#">👜 Accessories</a>
-              </li>
-              <li>
-                <a href="#">📚 Books</a>
-              </li>
-              <li>
-                <a href="#">🪪 IDs &amp; Cards</a>
-              </li>
-              <li>
-                <a href="#">👕 Clothing</a>
-              </li>
-            </ul>
-          </div> */}
 
           {/* Contact & Info */}
           <div className="footer-col">
@@ -110,13 +71,6 @@ export default function Footer() {
             &copy; 2026 Campus<span className="accent">Retriever</span> &mdash;
             Built with ❤️ for the campus community
           </p>
-          {/* <div className="footer-bottom-links">
-            <a href="#">Privacy Policy</a>
-            <span className="footer-dot">•</span>
-            <a href="#">Terms of Use</a>
-            <span className="footer-dot">•</span>
-            <a href="#">Help</a>
-          </div> */}
         </div>
       </div>
     </footer>

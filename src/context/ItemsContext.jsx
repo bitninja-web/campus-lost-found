@@ -5,6 +5,7 @@ import {
   useState,
   useEffect,
   useCallback,
+  useMemo,
   useRef,
 } from "react";
 import { useSession } from "next-auth/react";
@@ -28,6 +29,7 @@ export function ItemsProvider({ children }) {
   const [sortMode, setSortMode] = useState("newest");
   const [toasts, setToasts] = useState([]);
   const toastId = useRef(0);
+  const toastTimers = useRef(new Map());
 
   // ── Load items only when authenticated ──
   useEffect(() => {
@@ -53,16 +55,32 @@ export function ItemsProvider({ children }) {
   }
 
   // ── Toast system ──
+  // Clean up all pending toast timers on unmount
+  useEffect(() => {
+    const timers = toastTimers.current;
+    return () => {
+      timers.forEach((timer) => clearTimeout(timer));
+      timers.clear();
+    };
+  }, []);
+
   const addToast = useCallback((msg, type = "success") => {
     const id = ++toastId.current;
     setToasts((prev) => [...prev, { id, msg, type }]);
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
+      toastTimers.current.delete(id);
     }, 3500);
+    toastTimers.current.set(id, timer);
   }, []);
 
   const removeToast = useCallback((id) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
+    const timer = toastTimers.current.get(id);
+    if (timer) {
+      clearTimeout(timer);
+      toastTimers.current.delete(id);
+    }
   }, []);
 
   // ── CRUD operations ──
@@ -154,13 +172,13 @@ export function ItemsProvider({ children }) {
     }
   }, [allItems, searchQuery, filterCategory, activeStatus, sortMode]);
 
-  // ── Stats ──
-  const stats = {
+  // ── Stats (memoized — only recalculated when allItems changes) ──
+  const stats = useMemo(() => ({
     total: allItems.length,
     lost: allItems.filter((i) => i.status === "Lost").length,
     found: allItems.filter((i) => i.status === "Found").length,
     claimed: allItems.filter((i) => i.status === "Claimed").length,
-  };
+  }), [allItems]);
 
   const resetFilters = useCallback(() => {
     setSearchQuery("");

@@ -4,42 +4,13 @@ import { authOptions } from "@/lib/auth";
 import connectDB from "@/lib/mongodb";
 import Item from "@/models/Item";
 import Image from "@/models/Image";
-
-// ── Helpers ──
-function sanitize(val, maxLen = 500) {
-  return typeof val === "string" ? val.trim().slice(0, maxLen) : "";
-}
-
-const VALID_STATUSES = ["Lost", "Found", "Claimed"];
-const VALID_CATEGORIES = [
-  "Electronics",
-  "Accessories",
-  "Books",
-  "IDs & Cards",
-  "Clothing",
-  "Other",
-];
-
-// Strips audit fields for student role
-function stripAuditFields(item) {
-  const obj = item.toObject ? item.toObject() : { ...item };
-  obj.id = obj._id?.toString() || obj.id;
-  delete obj.submittedBy;
-  delete obj.submittedAt;
-  delete obj.claimedBy;
-  delete obj.handedOverAt;
-  delete obj.statusHistory;
-  delete obj.__v;
-  return obj;
-}
-
-// Full item with audit for admin
-function fullItem(item) {
-  const obj = item.toObject ? item.toObject() : { ...item };
-  obj.id = obj._id?.toString() || obj.id;
-  delete obj.__v;
-  return obj;
-}
+import {
+  VALID_STATUSES,
+  VALID_CATEGORIES,
+  sanitize,
+  stripAuditFields,
+  fullItem,
+} from "@/lib/constants";
 
 // GET /api/items
 export async function GET(request) {

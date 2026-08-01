@@ -19,31 +19,30 @@ const SEED_USERS = [
 ];
 
 export async function GET() {
+  // Block seeding in production — this route is for dev/demo only
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      { error: "Seed route is disabled in production" },
+      { status: 403 }
+    );
+  }
+
   try {
     await connectDB();
 
     // --- Seed Users ---
-    const createdUsers = [];
     for (const userData of SEED_USERS) {
       const exists = await User.findOne({ email: userData.email });
-      if (exists) {
-        createdUsers.push(exists);
-        continue;
-      }
+      if (exists) continue;
       const hashed = await bcrypt.hash(userData.password, 12);
-      const user = await User.create({ ...userData, password: hashed });
-      createdUsers.push(user);
+      await User.create({ ...userData, password: hashed });
     }
-
-    const adminUser = createdUsers.find((u) => u.role === "admin");
-    const studentUser = createdUsers.find((u) => u.role === "student");
 
     return NextResponse.json({
       success: true,
       message: "Database seeded successfully",
       users: SEED_USERS.map((u) => ({
         email: u.email,
-        password: u.password,
         role: u.role,
       })),
     });

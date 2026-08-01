@@ -1,0 +1,62 @@
+﻿/* ============================================
+   Campus Retriever ΓÇô Production v3
+   Premium Design System
+   ============================================ */
+
+:root {
+  --primary: #6f42c1;
+  --primary-hover: #5a32a3;
+  --primary-light: #ede9fe;
+  --primary-glow: rgba(111, 66, 193, .35);
+  --accent: #f59e0b;
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --danger: #ef4444;
+  --danger-bg: #fef2f2;
+  --claimed: #3b82f6;
+  --claimed-bg: #eff6ff;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --bg: #f8f7ff;
+  --bg2: #f1effe;
+  --card: #ffffff;
+  --card-glass: rgba(255,255,255,.72);
+  --border: #e2e8f0;
+  --nav-bg: rgba(255,255,255,.82);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+  --shadow-glow: 0 0 20px rgba(111,66,193,.15);
+  --radius: 1rem;
+  --radius-sm: .5rem;
+  --radius-lg: 1.5rem;
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --transition: .22s ease;
+  --transition-spring: .4s cubic-bezier(.22,.68,0,1.1);
+}
+
+[data-theme="dark"] {
+  --primary: #a78bfa;
+  --primary-hover: #c4b5fd;
+  --primary-light: #2e1f5e;
+  --primary-glow: rgba(167,139,250,.3);
+  --accent: #fbbf24;
+  --success: #34d399;
+  --success-light: #065f46;
+  --danger: #f87171;
+  --danger-bg: #450a0a;
+  --claimed: #60a5fa;
+  --claimed-bg: #1e3a5f;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --bg: #0a0914;
+  --bg2: #141225;
+  --card: #161430;
+  --card-glass: rgba(22,20,48,.72);
+  --border: #2a2850;
+  --nav-bg: rgba(10,9,20,.85);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.4);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.5);
+  --shadow-glow: 0 0 30px rgba(167,139,250,.2);
+}

@@ -62,5 +62,5 @@ export const authOptions = {
     strategy: "jwt",
     maxAge: 24 * 60 * 60, // 24 hours
   },
-  secret: process.env.NEXTAUTH_SECRET || "campus-retriever-secret-key-dev-only",
+  secret: process.env.NEXTAUTH_SECRET,
 };

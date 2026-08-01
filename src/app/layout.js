@@ -1,7 +1,19 @@
 import { ThemeProvider } from "@/context/ThemeContext";
 import { ItemsProvider } from "@/context/ItemsContext";
 import AuthProvider from "@/context/AuthContext";
-import "./globals.css";
+import "./styles/variables.css";
+import "./styles/base.css";
+import "./styles/navbar.css";
+import "./styles/buttons.css";
+import "./styles/hero.css";
+import "./styles/cards.css";
+import "./styles/detail.css";
+import "./styles/forms.css";
+import "./styles/toast.css";
+import "./styles/error-responsive.css";
+import "./styles/login.css";
+import "./styles/audit.css";
+import "./styles/footer.css";
 
 export const metadata = {
   title: "Campus Retriever | Lost & Found",
